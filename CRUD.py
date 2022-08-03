@@ -43,32 +43,6 @@ class AnimalShelter():
         """A method to read all documents into the user dashboard and return a cursor"""
         result = self.database.animals.find(data, {"_id":False})
         return result
-            
-    def filtered_rescue_dogs(self, rescue_type: str) -> object:
-        """A method to filter read results and return a cursor"""
-        if rescue_type == "Water":
-            water_query = {"animal_type":"Dog",
-                           "breed":{"$in":["Labrador Retriever Mix","Chesapeake Bay Retriever","Newfoundland"]}, 
-                           "sex_upon_outcome":"Intact Female",
-                           "age_upon_outcome_in_weeks":{"$gte":26, "$lte":156}}
-            result = self.database.animals.find(water_query, {"_id":False})
-        elif rescue_type == "Mountain":
-            mountain_query = {"animal_type":"Dog",
-                              "breed":{"$in":["German Shephard","Alaskan Malamute","Old English Sheepdog",
-                                       "Siberian Husky", "Rottweiler"]}, 
-                              "sex_upon_outcome":"Intact Male",
-                              "age_upon_outcome_in_weeks":{"$gte":26, "$lte":156}}
-            result = self.database.animals.find(mountain_query, {"_id":False})
-        elif rescue_type == "Disaster":
-            disaster_query = {"animal_type":"Dog",
-                              "breed":{"$in":["Doberman Pinscher", "German Shephard","Golden Retriever","Bloodhound",
-                                       "Rottweiler"]}, 
-                              "sex_upon_outcome":"Intact Male",
-                              "age_upon_outcome_in_weeks":{"$gte":20, "$lte":300}}
-            result = self.database.animals.find(disaster_query, {"_id":False})
-        else:
-            raise Exception("Please enter a valid rescue type: Water, Mountain, or Disaster")
-        return result
            
     def update(self, search_data: dict, update_data: dict) -> object:
         """A method to update documents in MongoDB AAC database"""
